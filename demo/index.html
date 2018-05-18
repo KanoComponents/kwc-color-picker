@@ -17,8 +17,8 @@
 
         <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
         <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-        <link rel="import" href="../kwc-color-picker.html">
         <link rel="import" href="../palettes/material.html">
+        <link rel="import" href="../kwc-color-picker.html">
 
         <custom-style>
             <style is="custom-style" include="demo-pages-shared-styles">
@@ -68,9 +68,11 @@
                 <template>
                     <kwc-color-picker id="material"></kwc-color-picker>
                     <script>
-                        var input = document.getElementById('material');
-                        input.colors = KwcColorPickerPalette.Material.colors;
-                        input.rowSize = KwcColorPickerPalette.Material.rowSize;
+                        document.addEventListener('WebComponentsReady', () => {
+                            var input = document.getElementById('material');
+                            input.colors = KwcColorPickerPalette.Material.colors;
+                            input.rowSize = KwcColorPickerPalette.Material.rowSize;
+                        });
                     </script>
                 </template>
             </demo-snippet>
