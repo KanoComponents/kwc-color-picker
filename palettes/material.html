@@ -1,10 +1,9 @@
 <script>
     (() => {
         /**
-         * @namespace
-         * @memberof window
+         * @namespace KwcColorPickerPalette
          */
-        const Palette = {};
+        const KwcColorPickerPalette = {};
         const PALETTE = [
             // blueGrey
             ["#263238", "#37474F", "#455A64", "#546E7A", "#607D8C", "#78909C", "#90A4AE", "#B0BEC5", "#CFD8DC", "#ECEFF1", "#607D8B"],
@@ -45,14 +44,14 @@
             // Red
             ["#B71C1C", "#C62828", "#D32F2F", "#E53935", "#F44337", "#EF5350", "#E57373", "#EF9A9A", "#FFCDD2", "#FFEBEE", "#F44336"]
         ];
-        Palette.Material = {};
-        Palette.Material.colors = PALETTE.reduce((acc, column, columnIndex) => {
+        KwcColorPickerPalette.Material = {};
+        KwcColorPickerPalette.Material.colors = PALETTE.reduce((acc, column, columnIndex) => {
             column.forEach((color, index) => {
                 acc[columnIndex + index * PALETTE.length] = color;
             });
             return acc;
         }, new Array(PALETTE.length * PALETTE[0].length));
-        Palette.Material.rowSize = PALETTE.length;
-        window.KwcColorPickerPalette = Palette;
+        KwcColorPickerPalette.Material.rowSize = PALETTE.length;
+        window.KwcColorPickerPalette = KwcColorPickerPalette;
     })();
 </script>
