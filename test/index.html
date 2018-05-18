@@ -45,7 +45,7 @@
                     let colors = Polymer.dom(input.root).querySelectorAll('.color'),
                         rnd = Math.floor(Math.random() * colors.length),
                         el = colors[rnd],
-                        template = Polymer.dom(input.root).querySelector('template[is="dom-repeat"]');
+                        template = Polymer.dom(input.root).querySelector('dom-repeat');
 
                     dispatchEvent(el, 'click');
 
