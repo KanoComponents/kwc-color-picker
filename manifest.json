@@ -1,0 +1,10 @@
+{
+    "files": {
+        "palettes/material.html": {
+            "convertedUrl": "palletes/material.js",
+            "exports": {
+                "Material": "Material"
+            }
+        }
+    }
+}
