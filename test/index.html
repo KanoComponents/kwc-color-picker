@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-        <script src="../../web-component-tester/browser.js"></script>
-        <link rel="import" href="../kwc-color-picker.html">
+        <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+        <script src="../../../wct-browser-legacy/browser.js"></script>
+        <script type="module" src="../kwc-color-picker.js"></script>
     </head>
     <body>
         <test-fixture id="default">
@@ -12,51 +12,53 @@
                 <kwc-color-picker></kwc-color-picker>
             </template>
         </test-fixture>
-        <script>
+        <script type="module">
+import '../kwc-color-picker.js';
+import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
 
-            function listenOnce (el, event, cb) {
-                let onEvent = function (e) {
-                    el.removeEventListener(event, onEvent);
-                    cb(e);
-                }
-                el.addEventListener(event, onEvent);
-            }
+function listenOnce (el, event, cb) {
+    let onEvent = function (e) {
+        el.removeEventListener(event, onEvent);
+        cb(e);
+    }
+    el.addEventListener(event, onEvent);
+}
 
-            function dispatchEvent(node, name, detail) {
-                detail = detail || {};
-                var event = new Event(name, { bubbles: true });
-                Object.assign(event, detail);
-                node.dispatchEvent(event);
-            }
+function dispatchEvent(node, name, detail) {
+    detail = detail || {};
+    var event = new Event(name, { bubbles: true });
+    Object.assign(event, detail);
+    node.dispatchEvent(event);
+}
 
-            /* globals suite, test, assert, setup, fixture */
-            suite('<kano-input-color>', () => {
-                let input;
-                setup((done) => {
-                    input = fixture('default');
-                    listenOnce(input, 'dom-change', () => {
-                        done();
-                    })
-                });
-                test('is white by default', () => {
-                    assert.isTrue(input.value === '#ffffff');
-                });
-                test('changes value on click', () => {
-                    let colors = Polymer.dom(input.root).querySelectorAll('.color'),
-                        rnd = Math.floor(Math.random() * colors.length),
-                        el = colors[rnd],
-                        template = Polymer.dom(input.root).querySelector('dom-repeat');
+/* globals suite, test, assert, setup, fixture */
+suite('<kano-input-color>', () => {
+    let input;
+    setup((done) => {
+        input = fixture('default');
+        listenOnce(input, 'dom-change', () => {
+            done();
+        })
+    });
+    test('is white by default', () => {
+        assert.isTrue(input.value === '#ffffff');
+    });
+    test('changes value on click', () => {
+        let colors = dom(input.root).querySelectorAll('.color'),
+            rnd = Math.floor(Math.random() * colors.length),
+            el = colors[rnd],
+            template = dom(input.root).querySelector('dom-repeat');
 
-                    dispatchEvent(el, 'click');
+        dispatchEvent(el, 'click');
 
-                    assert.equal(input.value, template.itemForElement(el));
-                });
-                test('changing colors updates the selected color', () => {
-                    let colors = ['#ff0000', '#00ff00', '#0000ff'];
-                    input.colors = colors;
-                    assert.equal(input.value, colors[0]);
-                });
-            });
-        </script>
+        assert.equal(input.value, template.itemForElement(el));
+    });
+    test('changing colors updates the selected color', () => {
+        let colors = ['#ff0000', '#00ff00', '#0000ff'];
+        input.colors = colors;
+        assert.equal(input.value, colors[0]);
+    });
+});
+</script>
     </body>
 </html>
