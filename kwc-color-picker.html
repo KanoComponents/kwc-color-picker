@@ -186,7 +186,6 @@ Custom property | Description | Default
             }
         },
         observers: [
-            '_updateSelected(colors.splices)',
             '_setSize(rowSize, isAttached)'
         ],
         listeners: {
@@ -273,14 +272,6 @@ Custom property | Description | Default
                 this.firstHighlight = true;
             }
         },
-        _updateSelected() {
-            if (this.isAttached) {
-                //wait until dom-repeat updates
-                Polymer.RenderStatus.afterNextRender(this, () => {
-                    this.selectColor(this.colors.length - 1);
-                });
-            }
-        },
         _computeColor(color, value) {
             return `background-color: ${color};`;
         },
@@ -288,7 +279,18 @@ Custom property | Description | Default
             return !this.colors || !this.colors.length || !this.firstHighlight || this.idle;
         },
         getIndexByValue(value) {
-            return Math.max(0, this.colors.indexOf(value));
+            if (!value) {
+                return -1;
+            }
+            const normalizedValue = this.normalizeHex(value);
+            return this.colors.findIndex(c => this.normalizeHex(c) === normalizedValue);
+        },
+        normalizeHex(hex) {
+            let expanded = hex;
+            if (hex.length === 4) {
+                expanded = `#${hex.charAt(1)}${hex.charAt(1)}${hex.charAt(2)}${hex.charAt(2)}${hex.charAt(3)}${hex.charAt(3)}`;
+            }
+            return expanded.toLowerCase();
         },
         getBrightness(hexCode) {
             let r, g, b;
@@ -299,16 +301,16 @@ Custom property | Description | Default
             return ((r * 299) + (g * 587) + (b * 114)) / 1000;
         },
         _isHex(value) {
-            return /^#[0-9A-F]{6}$/i.test(value);
+            return /^#[0-9A-F]{3,6}$/i.test(value);
         },
         _onValueChanged(value) {
             if (this._isHex(value)) {
-                this.selectedIndex = this.getIndexByValue(value);
+                this.selectedIndex = Math.max(0, this.getIndexByValue(value));
             }
         },
         _onColorsSet(colors) {
             // Colors are set/reset. Find the value's index in the new array.
-            let newIndex = this.colors.indexOf(this.value);
+            let newIndex = this.getIndexByValue(this.value);
             if (newIndex === -1) {
                 this.selectColor(0);
             } else if (newIndex !== this.selectedIndex) {
