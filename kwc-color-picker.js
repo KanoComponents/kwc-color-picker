@@ -60,13 +60,13 @@ Polymer({
                 @apply --layout-center-justified;
                 @apply --layout-center;
                 position: absolute;
-                top: calc(var(--kwc-color-picker-margin, 0.5px) * -1);
-                left: calc(var(--kwc-color-picker-margin, 0.5px) * -1);
-                width: var(--kwc-color-picker-size, 32px);
-                height: var(--kwc-color-picker-size, 32px);
+                top: calc(var(--kwc-color-picker-margin, 0) * -1);
+                left: calc(var(--kwc-color-picker-margin, 0) * -1);
+                width: var(--kwc-color-picker-size, 22px);
+                height: var(--kwc-color-picker-size, 22px);
                 outline: 3px solid #aaa;
                 outline-offset: -1px;
-                margin: var(--kwc-color-picker-margin, 0.5px);
+                margin: var(--kwc-color-picker-margin, 0);
                 @apply --kwc-color-picker-outline;
             }
 
@@ -80,9 +80,9 @@ Polymer({
             }
 
             .color {
-                width: var(--kwc-color-picker-size, 32px);
-                height: var(--kwc-color-picker-size, 32px);
-                margin: var(--kwc-color-picker-margin, 0.5px);
+                width: var(--kwc-color-picker-size, 22px);
+                height: var(--kwc-color-picker-size, 22px);
+                margin: var(--kwc-color-picker-margin, 0);
                 transition: transform 150ms;
                 outline-offset: -1px;
                 box-sizing: border-box;
@@ -113,8 +113,8 @@ Polymer({
             }
 
             iron-icon {
-                --iron-icon-height: calc(var(--kwc-color-picker-size, 32px) / 1.5);
-                --iron-icon-width: calc(var(--kwc-color-picker-size, 32px) / 1.5);
+                --iron-icon-height: calc(var(--kwc-color-picker-size, 22px) / 1.5);
+                --iron-icon-width: calc(var(--kwc-color-picker-size, 22px) / 1.5);
                 fill: #fff;
             }
             #select-frame.hover-dark iron-icon {
@@ -213,8 +213,8 @@ Polymer({
       if (!isAttached) {
           return;
       }
-      const colorSize = this.getComputedStyleValue('--kwc-color-picker-size') || '32px',
-            margin = this.getComputedStyleValue('--kwc-color-picker-margin') || '0.5px';
+      const colorSize = this.getComputedStyleValue('--kwc-color-picker-size') || '22px',
+            margin = this.getComputedStyleValue('--kwc-color-picker-margin') || '0';
       this.$.colors.style.width = `${(parseFloat(colorSize, 10) + 2 *
           parseFloat(margin, 10)) * this.rowSize}px`;
   },
