@@ -10,6 +10,13 @@
     "@webcomponents/webcomponentsjs": "2.0.0-beta.2"
   },
   "main": "kwc-color-picker.js",
+  "scripts": {
+    "serve-test": "web-tester serve ./test",
+    "test": "web-tester run ./test",
+    "test-ci": "yarn run --silent test > test-results.xml",
+    "checkstyle": "eslint ./kwc-color-picker.js ./kwc-color-picker-icons.js ./palettes",
+    "checkstyle-ci": "yarn checkstyle -f checkstyle -o eslint.xml"
+  },
   "dependencies": {
     "@polymer/iron-flex-layout": "^3.0.0-pre.18",
     "@polymer/iron-icon": "^3.0.0-pre.18",
@@ -18,9 +25,10 @@
     "@polymer/polymer": "^3.0.0"
   },
   "devDependencies": {
-    "@polymer/iron-component-page": "^3.0.0-pre.18",
-    "@polymer/iron-demo-helpers": "^3.0.0-pre.18",
+    "@kano/eslint-config": "^1.0.0",
+    "@kano/web-tester": "^1.0.0-alpha.5",
     "@webcomponents/webcomponentsjs": "^2.0.0",
-    "wct-browser-legacy": "^0.0.1-pre.11"
+    "eslint": "^4.19.1",
+    "eslint-plugin-import": "^2.14.0"
   }
 }

@@ -1,18 +1,3 @@
-<!doctype html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-        <script src="../../../wct-browser-legacy/browser.js"></script>
-        <script type="module" src="../kwc-color-picker.js"></script>
-    </head>
-    <body>
-        <test-fixture id="default">
-            <template>
-                <kwc-color-picker></kwc-color-picker>
-            </template>
-        </test-fixture>
-        <script type="module">
 import '../kwc-color-picker.js';
 import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
 
@@ -31,14 +16,18 @@ function dispatchEvent(node, name, detail) {
     node.dispatchEvent(event);
 }
 
+const basic = fixture`
+<kwc-color-picker></kwc-color-picker>
+`;
+
 /* globals suite, test, assert, setup, fixture */
 suite('<kano-input-color>', () => {
     let input;
     setup((done) => {
-        input = fixture('default');
+        input = basic();
         listenOnce(input, 'dom-change', () => {
             done();
-        })
+        });
     });
     test('is white by default', () => {
         assert.isTrue(input.value === '#ffffff');
@@ -59,6 +48,3 @@ suite('<kano-input-color>', () => {
         assert.equal(input.value, colors[0]);
     });
 });
-</script>
-    </body>
-</html>
