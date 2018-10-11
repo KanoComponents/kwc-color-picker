@@ -16,8 +16,10 @@ Custom property | Description | Default
 `--kwc-color-picker-background` | Background color on host | 'transparent'
 `--kwc-color-picker-field` | Mixin for the input field | {}
 `--kwc-color-picker-outline` | Mixin applied to the selection frame | {}
-`--kwc-color-picker-outline-hover-light` | Mixin applied to the selection frame when over a light color | {}
-`--kwc-color-picker-outline-hover-dark` |  Mixin applied to the selection frame when over a dark color | {}
+`--kwc-color-picker-outline-hover-light` |
+    Mixin applied to the selection frame when over a light color | {}
+`--kwc-color-picker-outline-hover-dark` |
+    Mixin applied to the selection frame when over a dark color | {}
 
 @group Kano Elements
 @hero hero.svg
@@ -29,17 +31,18 @@ Custom property | Description | Default
   then delete this comment!
 */
 import '@polymer/polymer/polymer-legacy.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { flush as flush$0, dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
+import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/iron-icon/iron-icon.js';
 import { IronResizableBehavior } from '@polymer/iron-resizable-behavior/iron-resizable-behavior.js';
 import './kwc-color-picker-icons.js';
-import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import { flush as flush$0, dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
-import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
+
 Polymer({
-  _template: html`
+    _template: html`
         <style>
             :host {
                 display: inline-block;
@@ -140,239 +143,237 @@ Polymer({
         </div>
 `,
 
-  is: 'kwc-color-picker',
+    is: 'kwc-color-picker',
 
-  behaviors: [
-      IronResizableBehavior
-  ],
+    behaviors: [
+        IronResizableBehavior,
+    ],
 
-  properties: {
-      colors: {
-          type: Array,
-          value: () => [
-              '#ffffff',  // White
-              '#000000',  // Black
-              '#e95c5a',  // Red
-              '#ff842a',  // Kano Orange
-              '#f8eb1e',  // Yellow
-              '#3caa36',  // Green
-              '#0e6633',  // Dark Green
-              '#59b3d0',  // Light Blue
-              '#2a3080',  // Dark Blue
-              '#642682',  // Violet
-              '#db7d92',  // Pink
-              '#683d12'   // Brown
-          ],
-          observer: '_onColorsSet'
-      },
-      value: {
-          type: String,
-          notify: true,
-          observer: '_onValueChanged'
-      },
-      rowSize: {
-          type: Number,
-          value: 12
-      },
-      selectedIndex: {
-          type: Number,
-          observer: '_highlightSelected'
-      },
-      idle: {
-          type: Boolean,
-          value: false,
-          observer: '_onIdleChanged'
-      },
-      visible: {
-          type: Boolean,
-          value: false
-      },
-      tickIcon: {
-          type: String,
-          value: () => {
-              return 'kwc-color-picker:tick'
-          }
-      }
-  },
+    properties: {
+        colors: {
+            type: Array,
+            value: () => [
+                '#ffffff', // White
+                '#000000', // Black
+                '#e95c5a', // Red
+                '#ff842a', // Kano Orange
+                '#f8eb1e', // Yellow
+                '#3caa36', // Green
+                '#0e6633', // Dark Green
+                '#59b3d0', // Light Blue
+                '#2a3080', // Dark Blue
+                '#642682', // Violet
+                '#db7d92', // Pink
+                '#683d12', // Brown
+            ],
+            observer: '_onColorsSet',
+        },
+        value: {
+            type: String,
+            notify: true,
+            observer: '_onValueChanged',
+        },
+        rowSize: {
+            type: Number,
+            value: 12,
+        },
+        selectedIndex: {
+            type: Number,
+            observer: '_highlightSelected',
+        },
+        idle: {
+            type: Boolean,
+            value: false,
+            observer: '_onIdleChanged',
+        },
+        visible: {
+            type: Boolean,
+            value: false,
+        },
+        tickIcon: {
+            type: String,
+            value: () => 'kwc-color-picker:tick',
+        },
+    },
 
-  observers: [
-      '_setSize(rowSize, isAttached)'
-  ],
+    observers: [
+        '_setSize(rowSize, isAttached)',
+    ],
 
-  listeners: {
-      'iron-resize': '_onResize'
-  },
+    listeners: {
+        'iron-resize': '_onResize',
+    },
 
-  // Forces the dom-repeat to stamp right now
-  // Useful if parent needs to compute size after connected
-  flush() {
-      flush$0();
-  },
+    // Forces the dom-repeat to stamp right now
+    // Useful if parent needs to compute size after connected
+    flush() {
+        flush$0();
+    },
 
-  _setSize(rowSize, isAttached) {
-      if (!isAttached) {
-          return;
-      }
-      const colorSize = this.getComputedStyleValue('--kwc-color-picker-size') || '22px',
-            margin = this.getComputedStyleValue('--kwc-color-picker-margin') || '0';
-      this.$.colors.style.width = `${(parseFloat(colorSize, 10) + 2 *
-          parseFloat(margin, 10)) * this.rowSize}px`;
-  },
+    _setSize(rowSize, isAttached) {
+        if (!isAttached) {
+            return;
+        }
+        const colorSize = this.getComputedStyleValue('--kwc-color-picker-size') || '22px';
+        const margin = this.getComputedStyleValue('--kwc-color-picker-margin') || '0';
+        this.$.colors.style.width = `${(parseFloat(colorSize, 10) + (2 * (parseFloat(margin, 10)) * this.rowSize))}px`;
+    },
 
-  addColor(color) {
-      if (this._isHex(color)) {
-          this.splice('colors', this.colors.length, 0, color);
-      }
-  },
+    addColor(color) {
+        if (this._isHex(color)) {
+            this.splice('colors', this.colors.length, 0, color);
+        }
+    },
 
-  removeColor(index) {
-      this.splice('colors', index, 1);
-  },
+    removeColor(index) {
+        this.splice('colors', index, 1);
+    },
 
-  _hoverOn(e) {
-      const target = dom(e).rootTarget,
-          color = this.$.palette.modelForElement(target).get('color'),
-          index = this.$.palette.indexForElement(target),
-          brightness = this.getBrightness(color),
-          highlightClass = brightness > 210 ? 'hover-light' : 'hover-dark';
+    _hoverOn(e) {
+        const target = dom(e).rootTarget;
+        const color = this.$.palette.modelForElement(target).get('color');
+        const index = this.$.palette.indexForElement(target);
+        const brightness = this.getBrightness(color);
+        const highlightClass = brightness > 210 ? 'hover-light' : 'hover-dark';
 
-      if (index !== this.selectedIndex) {
-          this.toggleClass(highlightClass, true, target);
-      }
-  },
+        if (index !== this.selectedIndex) {
+            this.toggleClass(highlightClass, true, target);
+        }
+    },
 
-  _hoverOff(e) {
-      const target = dom(e).rootTarget,
-          hoverClass = /hover-dark|hover-light/.exec(target.classList);
-      this.toggleClass(hoverClass, false, target);
-  },
+    _hoverOff(e) {
+        const target = dom(e).rootTarget;
+        const hoverClass = /hover-dark|hover-light/.exec(target.classList);
+        this.toggleClass(hoverClass, false, target);
+    },
 
-  _selectColorOnTap(e) {
-      this.selectColor(e.model.index);
-  },
+    _selectColorOnTap(e) {
+        this.selectColor(e.model.index);
+    },
 
-  selectColor(index) {
-      this.set('value', this.colors[index]);
-      this.fire('change', this.value);
-  },
+    selectColor(index) {
+        this.set('value', this.colors[index]);
+        this.fire('change', this.value);
+    },
 
-  _highlightSelected() {
-      const target = this.$$(`#color-${this.selectedIndex}`);
-      if (!target || !this.visible) {
-          return;
-      }
-      const brightness = this.getBrightness(this.colors[this.selectedIndex]),
-          frame = this.$['select-frame'],
-          currentFrameOffset = {
-              top: frame.getBoundingClientRect().top -
+    _highlightSelected() {
+        const target = this.$$(`#color-${this.selectedIndex}`);
+        if (!target || !this.visible) {
+            return;
+        }
+        const brightness = this.getBrightness(this.colors[this.selectedIndex]);
+        const frame = this.$['select-frame'];
+        const currentFrameOffset = {
+            top: frame.getBoundingClientRect().top -
               this.$.colors.getBoundingClientRect().top,
-              left: frame.getBoundingClientRect().left -
-              this.$.colors.getBoundingClientRect().left
-          };
-      this.toggleClass(brightness > 210 ? 'hover-dark' : 'hover-light', false, frame);
-      this.toggleClass(brightness > 210 ? 'hover-light' : 'hover-dark', true, frame);
+            left: frame.getBoundingClientRect().left -
+              this.$.colors.getBoundingClientRect().left,
+        };
+        this.toggleClass(brightness > 210 ? 'hover-dark' : 'hover-light', false, frame);
+        this.toggleClass(brightness > 210 ? 'hover-light' : 'hover-dark', true, frame);
 
-      // Animate if the frame is visible and animation is supported
-      if (!this.idle && this.firstHighlight && 'animate' in HTMLElement.prototype) {
-          frame.animate({
-              transform: [
-                  `translate(${currentFrameOffset.left}px, ${currentFrameOffset.top}px)`,
-                  `translate(${target.offsetLeft}px, ${target.offsetTop}px)`
-              ]
-          },{
-              duration: 200,
-              easing: 'ease-out',
-              fill: 'forwards'
-          });
+        // Animate if the frame is visible and animation is supported
+        if (!this.idle && this.firstHighlight && 'animate' in HTMLElement.prototype) {
+            frame.animate({
+                transform: [
+                    `translate(${currentFrameOffset.left}px, ${currentFrameOffset.top}px)`,
+                    `translate(${target.offsetLeft}px, ${target.offsetTop}px)`,
+                ],
+            }, {
+                duration: 200,
+                easing: 'ease-out',
+                fill: 'forwards',
+            });
 
-      // Otherwise use the new position immediately
-      } else {
-          frame.style.transform = `translate(${target.offsetLeft}px, ${target.offsetTop}px)`;
-          this.toggleClass('visible', true, this.$.tick);
-          this.firstHighlight = true;
-      }
-  },
+            // Otherwise use the new position immediately
+        } else {
+            frame.style.transform = `translate(${target.offsetLeft}px, ${target.offsetTop}px)`;
+            this.toggleClass('visible', true, this.$.tick);
+            this.firstHighlight = true;
+        }
+    },
 
-  _computeColor(color, value) {
-      return `background-color: ${color};`;
-  },
+    _computeColor(color) {
+        return `background-color: ${color};`;
+    },
 
-  _hideSelectFrame() {
-      return !this.colors || !this.colors.length || !this.firstHighlight || this.idle;
-  },
+    _hideSelectFrame() {
+        return !this.colors || !this.colors.length || !this.firstHighlight || this.idle;
+    },
 
-  getIndexByValue(value) {
-      if (!value) {
-          return -1;
-      }
-      const normalizedValue = this.normalizeHex(value);
-      return this.colors.findIndex(c => this.normalizeHex(c) === normalizedValue);
-  },
+    getIndexByValue(value) {
+        if (!value) {
+            return -1;
+        }
+        const normalizedValue = this.normalizeHex(value);
+        return this.colors.findIndex(c => this.normalizeHex(c) === normalizedValue);
+    },
 
-  normalizeHex(hex) {
-      let expanded = hex;
-      if (hex.length === 4) {
-          expanded = `#${hex.charAt(1)}${hex.charAt(1)}${hex.charAt(2)}${hex.charAt(2)}${hex.charAt(3)}${hex.charAt(3)}`;
-      }
-      return expanded.toLowerCase();
-  },
+    normalizeHex(hex) {
+        let expanded = hex;
+        if (hex.length === 4) {
+            expanded = `#${hex.charAt(1)}${hex.charAt(1)}${hex.charAt(2)}${hex.charAt(2)}${hex.charAt(3)}${hex.charAt(3)}`;
+        }
+        return expanded.toLowerCase();
+    },
 
-  getBrightness(hexCode) {
-      let r, g, b;
-      hexCode = hexCode.replace('#', '');
-      r = parseInt(hexCode.substr(0, 2), 16);
-      g = parseInt(hexCode.substr(2, 2), 16);
-      b = parseInt(hexCode.substr(4, 2), 16);
-      return ((r * 299) + (g * 587) + (b * 114)) / 1000;
-  },
+    getBrightness(hexCode) {
+        hexCode = hexCode.replace('#', '');
+        const r = parseInt(hexCode.substr(0, 2), 16);
+        const g = parseInt(hexCode.substr(2, 2), 16);
+        const b = parseInt(hexCode.substr(4, 2), 16);
+        return ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    },
 
-  _isHex(value) {
-      return /^#[0-9A-F]{3,6}$/i.test(value);
-  },
+    _isHex(value) {
+        return /^#[0-9A-F]{3,6}$/i.test(value);
+    },
 
-  _onValueChanged(value) {
-      if (this._isHex(value)) {
-          this.selectedIndex = Math.max(0, this.getIndexByValue(value));
-      }
-  },
+    _onValueChanged(value) {
+        if (this._isHex(value)) {
+            this.selectedIndex = Math.max(0, this.getIndexByValue(value));
+        }
+    },
 
-  _onColorsSet(colors) {
-      // Colors are set/reset. Find the value's index in the new array.
-      let newIndex = this.getIndexByValue(this.value);
-      if (newIndex === -1) {
-          this.selectColor(0);
-      } else if (newIndex !== this.selectedIndex) {
-          this.selectColor(newIndex);
-      }
-  },
+    _onColorsSet() {
+        // Colors are set/reset. Find the value's index in the new array.
+        const newIndex = this.getIndexByValue(this.value);
+        if (newIndex === -1) {
+            this.selectColor(0);
+        } else if (newIndex !== this.selectedIndex) {
+            this.selectColor(newIndex);
+        }
+    },
 
-  _onIdleChanged(idle) {
-      if (idle) {
-          this.firstHighlight = false;
-          this.selectedIndex = this.value = null;
-      }
-  },
+    _onIdleChanged(idle) {
+        if (idle) {
+            this.firstHighlight = false;
+            this.selectedIndex = null;
+            this.value = null;
+        }
+    },
 
-  _onResize() {
-      //Iron-resize will call this function on resize, including when element has become hidden/unhidden.
-      //We delay the clientRect reading as the css values will be applied in the next cycle.
-      afterNextRender(this, () => {
-          this.resize();
-      });
-  },
+    _onResize() {
+        // Iron-resize will call this function on resize,
+        // including when element has become hidden/unhidden.
+        // We delay the clientRect reading as the css values will be applied in the next cycle.
+        afterNextRender(this, () => {
+            this.resize();
+        });
+    },
 
-  resize() {
-      this.visible = this.getBoundingClientRect().width !== 0 &&
+    resize() {
+        this.visible = this.getBoundingClientRect().width !== 0 &&
           this.getBoundingClientRect().height !== 0;
-      if (this.visible && !this.idle) {
-          this._highlightSelected();
-      } else {
-          this.firstHighlight = false;
-      }
-  },
+        if (this.visible && !this.idle) {
+            this._highlightSelected();
+        } else {
+            this.firstHighlight = false;
+        }
+    },
 
-  // Returns the color palette for outside access
-  getColorField() {
-      return this.$.colors;
-  }
+    // Returns the color palette for outside access
+    getColorField() {
+        return this.$.colors;
+    },
 });
