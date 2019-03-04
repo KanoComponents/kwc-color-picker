@@ -16,7 +16,7 @@
     "test": "web-tester run *.test.js",
     "test-ci": "yarn run --silent test -r xunit > test-results.xml",
     "coverage": "web-tester cover *.test.js",
-    "coverage-ci": "yarn run --silent cover -r cobertura",
+    "coverage-ci": "yarn run --silent coverage -r cobertura",
     "lint": "eslint ./kwc-color-picker.js ./kwc-color-picker-icons.js ./palettes",
     "lint-ci": "yarn lint -f checkstyle -o eslint.xml"
   },
