@@ -1,4 +1,4 @@
-# \<kwc-color-picker\>
+# <kwc-color-picker>
 
 Tile based color picker with customizable palette
 
@@ -19,23 +19,34 @@ Tile based color picker with customizable palette
      - When the selected colour changes, the highlighting only animates if the Web Animations API is supported by the browser. To make the feature work in all browsers, use a [polyfill](https://github.com/web-animations/web-animations-js).
 
 ## Installation
-Clone this repository.
-Run `bower i`
-
-## Install the Polymer-CLI
-
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your element locally.
-
-## Viewing Your Element
 
 ```
-$ polymer serve
+yarn add @kano/kwc-color-picker
 ```
 
-## Running Tests
+## Usage
 
 ```
-$ polymer test --skip-plugin junit-reporter
+import '@kano/kwc-color-picker/kwc-color-picker.js';
+
+const tpl = html`
+    <kwc-color-picker></kwc-color-picker>
+`;
+```
+## API
+
+## Development
+
+Clone this repository and install the dependencies with `yarn`
+
+Serve the demo with
+
+```
+yarn serve
 ```
 
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
+Serve the tests with
+
+```
+yarn serve-test
+```

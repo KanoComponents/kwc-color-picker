@@ -1,110 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
-
-        <title>kano-input-range demo</title>
-
-        <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-
-        <script>
-            window.Polymer = {
-                dom: 'shadow'
-            };
-        </script>
-
-        <script type="module" src="../../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
-        <script type="module" src="../../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
-        <script type="module" src="../palettes/material.js"></script>
-        <script type="module" src="../kwc-color-picker.js"></script>
-
-        <!-- FIXME(polymer-modulizer):
-        These imperative modules that innerHTML your HTML are
-        a hacky way to be sure that any mixins in included style
-        modules are ready before any elements that reference them are
-        instantiated, otherwise the CSS @apply mixin polyfill won't be
-        able to expand the underlying CSS custom properties.
-        See: https://github.com/Polymer/polymer-modulizer/issues/154
-        -->
-    <script type="module">
-const $_documentContainer = document.createElement('template');
-
-$_documentContainer.innerHTML = `<custom-style>
-            <style is="custom-style" include="demo-pages-shared-styles">
-                html, body {
-                    min-height: 100vh;
-                }
-                body {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                }
-                h1 {
-                    align-self: flex-start;
-                }
-                demo-snippet {
-                    --demo-snippet-demo: {
-                        background-color: #bbb;
-                    };
-                }
-                #material {
-                    --kwc-color-picker-size: 22px;
-                    --kwc-color-picker-margin: 0px;
-                }
-            </style>
-        </custom-style>`;
-
-document.body.appendChild($_documentContainer.content);
-</script>
-    </head>
-    <body unresolved>
-        <script type="module">
-const $_documentContainer = document.createElement('template');
-
-$_documentContainer.innerHTML = `<div class="vertical-section-container">
-            <h3>kwc-color-picker</h3>
-            <demo-snippet>
-                <template>
-                    <kwc-color-picker id="input"></kwc-color-picker>
-                </template>
-            </demo-snippet>
-            <h3>kwc-color-picker with custom palette</h3>
-            <demo-snippet>
-                <template>
-                    <kwc-color-picker id="palette"></kwc-color-picker>
-                    <script>
-                        var input = document.getElementById('palette');
-                        input.colors = ['#ff0000', '#00ff00', '#0000ff'];
-                    &lt;/script>
-                </template>
-            </demo-snippet>
-            <h3>kwc-color-picker with material palette</h3>
-            <demo-snippet>
-                <template>
-                    <kwc-color-picker id="material"></kwc-color-picker>
-                    <script>
-                        document.addEventListener('WebComponentsReady', () => {
-                            var input = document.getElementById('material');
-                            input.colors = KwcColorPickerPalette.Material.colors;
-                            input.rowSize = KwcColorPickerPalette.Material.rowSize;
-                        });
-                    &lt;/script>
-                </template>
-            </demo-snippet>
-            <h3>kwc-color-picker in idle mode</h3>
-            <demo-snippet>
-                <template>
-                    <kwc-color-picker id="idle" idle=""></kwc-color-picker>
-                </template>
-            </demo-snippet>
-        </div>`;
-
-document.body.appendChild($_documentContainer.content);
-</script>e></kwc-color-picker>
-                </template>
-            </demo-snippet>
-        </div>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>kwc-color-picker demo</title>
+</head>
+<body>
+    <script type="module" src="index.js"></script>
+</body>
 </html>

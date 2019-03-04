@@ -8,7 +8,6 @@
 ehthumbs.db
 Thumbs.db
 
-bower_components/
-analysis.json
-
 node_modules
+coverage
+eslint.xml
