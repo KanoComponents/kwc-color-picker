@@ -1,5 +1,7 @@
 demo
-test
 .eslintrc.js
 Jenkinsfile
 README.md
+coverage
+yarn.lock
+**/*.test.js

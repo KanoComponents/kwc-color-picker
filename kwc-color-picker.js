@@ -1,3 +1,14 @@
+import '@polymer/polymer/polymer-legacy.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { flush as flush$0, dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
+import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
+
+import '@polymer/iron-flex-layout/iron-flex-layout.js';
+import '@polymer/iron-icon/iron-icon.js';
+import { IronResizableBehavior } from '@polymer/iron-resizable-behavior/iron-resizable-behavior.js';
+import './kwc-color-picker-icons.js';
+
 /**
 `kano-input-color` Displays a color palette and allows one to be selected with a click
 
@@ -25,22 +36,6 @@ Custom property | Description | Default
 @hero hero.svg
 @demo demo/index.html
 */
-/*
-  FIXME(polymer-modulizer): the above comments were extracted
-  from HTML and may be out of place here. Review them and
-  then delete this comment!
-*/
-import '@polymer/polymer/polymer-legacy.js';
-import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import { flush as flush$0, dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
-import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
-
-import '@polymer/iron-flex-layout/iron-flex-layout.js';
-import '@polymer/iron-icon/iron-icon.js';
-import { IronResizableBehavior } from '@polymer/iron-resizable-behavior/iron-resizable-behavior.js';
-import './kwc-color-picker-icons.js';
-
 Polymer({
     _template: html`
         <style>
@@ -216,7 +211,7 @@ Polymer({
         }
         const colorSize = this.getComputedStyleValue('--kwc-color-picker-size') || '22px';
         const margin = this.getComputedStyleValue('--kwc-color-picker-margin') || '0';
-        this.$.colors.style.width = `${(parseFloat(colorSize, 10) + (2 * (parseFloat(margin, 10)) * this.rowSize))}px`;
+        this.$.colors.style.width = `${(parseFloat(colorSize, 10) + (2 * (parseFloat(margin, 10)))) * this.rowSize}px`;
     },
 
     addColor(color) {
