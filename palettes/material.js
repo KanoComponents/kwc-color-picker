@@ -36,7 +36,7 @@ const PALETTE = [
     // Pink
     ['#880E4F', '#AD1457', '#C2185B', '#D81B60', '#E91E64', '#EC407A', '#F06292', '#F48FB1', '#F8BBD0', '#FCE4EC', '#E91E63'],
     // Red
-    ['#B71C1C', '#C62828', '#D32F2F', '#E53935', '#F44337', '#EF5350', '#E57373', '#EF9A9A', '#FFCDD2', '#FFEBEE', '#F44336'],
+    ['#B71C1C', '#C62828', '#D32F2F', '#E53935', '#F44337', '#EF5350', '#E57373', '#EF9A9A', '#FFCDD2', '#FFEBEE', '#FF0000'],
 ];
 export const Material = {};
 Material.colors = PALETTE.reduce((acc, column, columnIndex) => {
